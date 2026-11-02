@@ -132,6 +132,12 @@ router.get("/:id", async (req, res) => {
 // POST: Secure - verified user-এর নামে নতুন Studio তৈরি
 router.post("/", verifyInternalRequest, async (req, res) => {
   try {
+    req.body =
+      req.body &&
+      typeof req.body === "object" &&
+      !Array.isArray(req.body)
+        ? req.body
+        : {};
     const {
       title,
       category,
@@ -219,6 +225,12 @@ router.post("/", verifyInternalRequest, async (req, res) => {
 // PUT: Secure - শুধু Studio owner update করতে পারবে
 router.put("/:id", verifyInternalRequest, async (req, res) => {
   try {
+    req.body =
+      req.body &&
+      typeof req.body === "object" &&
+      !Array.isArray(req.body)
+        ? req.body
+        : {};
     const { id } = req.params;
 
     if (!validObjectId(id)) {
@@ -412,6 +424,7 @@ router.delete("/:id", verifyInternalRequest, async (req, res) => {
 });
 
 module.exports = router;
+
 
 
 
