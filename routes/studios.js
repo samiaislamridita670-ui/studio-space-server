@@ -14,6 +14,10 @@ function validObjectId(id) {
   return ObjectId.isValid(id) && String(new ObjectId(id)) === id;
 }
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 // GET: Public - সব Studio দেখাবে
 router.get("/", async (req, res) => {
   try {
@@ -390,3 +394,4 @@ router.delete("/:id", verifyInternalRequest, async (req, res) => {
 });
 
 module.exports = router;
+
