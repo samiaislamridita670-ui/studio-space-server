@@ -177,7 +177,12 @@ router.post("/", verifyInternalRequest, async (req, res) => {
       location: location.trim(),
       image: typeof image === "string" ? image.trim() : "",
       amenities: Array.isArray(amenities)
-        ? amenities.filter((item) => typeof item === "string")
+        ? [...new Set(
+            amenities
+              .filter((item) => typeof item === "string")
+              .map((item) => item.trim())
+              .filter(Boolean)
+          )]
         : [],
       overview: overview.trim(),
 
@@ -394,4 +399,5 @@ router.delete("/:id", verifyInternalRequest, async (req, res) => {
 });
 
 module.exports = router;
+
 
