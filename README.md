@@ -1,39 +1,45 @@
 # StudioSpace — Backend API
 
-StudioSpace Backend is a RESTful API built with Node.js, Express.js, and MongoDB. It powers the StudioSpace Creative Studio Booking Platform by managing studio listings, authentication, and secure server-side operations.
+StudioSpace Backend is a RESTful API built with Node.js, Express.js, and MongoDB. It powers the StudioSpace Creative Studio Booking Platform by managing studio listings, booking-related operations, and secure server-side communication.
 
-## Project Overview
+## 🌐 Live Backend
 
-The backend provides APIs for:
+* **Live API:** https://studio-space-server-jbg6.vercel.app
+* **Health Check:** https://studio-space-server-jbg6.vercel.app/api/health
 
-* Retrieving available studios.
-* Searching and filtering studio listings.
-* Creating new studio listings.
-* Updating and deleting studio listings.
-* Managing studio ownership.
-* Protecting private API operations.
-* Supporting secure communication with the frontend.
+## 📌 Project Overview
 
-## Backend Repository
+The backend provides APIs for managing creative studio listings and supporting communication between the frontend and database.
 
-https://github.com/samiaislamridita670-ui/studio-space-server
+### Main Responsibilities
 
-## Frontend Repository
+* Retrieve available studio listings.
+* Search and filter studios.
+* Create new studio listings.
+* Update existing studio listings.
+* Delete studio listings.
+* Manage studio ownership.
+* Protect internal API operations.
+* Support secure communication with the frontend.
 
-https://github.com/samiaislamridita670-ui/studio-space-client
+## 🔗 Project Repositories
 
-## Technology Stack
+* **Backend Repository:** https://github.com/samiaislamridita670-ui/studio-space-server
+* **Frontend Repository:** https://github.com/samiaislamridita670-ui/studio-space-client
+* **Live Website:** https://studio-space-client-orpin.vercel.app/
+
+## 🛠️ Technology Stack
 
 * Node.js
-* Express.js 5
+* Express.js
 * MongoDB
 * MongoDB Node.js Driver
-* JSON Web Token (JWT)
-* bcrypt
+* JavaScript
 * dotenv
 * CORS
+* Internal API Secret Verification
 
-## Features
+## ✨ Features
 
 ### Studio Management
 
@@ -45,25 +51,30 @@ https://github.com/samiaislamridita670-ui/studio-space-client
 * Create new studio listings.
 * Update existing studio listings.
 * Delete studio listings.
+* Retrieve authenticated user's studio listings.
 
 ### Security
 
 * Protected studio management endpoints.
 * Internal API secret verification.
 * Authenticated user identity verification.
-* Secure studio ownership validation.
-* Prevents unauthorized listing modifications.
+* Studio ownership validation.
+* Prevent unauthorized listing modifications.
 * Server-side request validation.
+* Environment-based secret configuration.
 
-## Project Structure
+## 📁 Project Structure
 
 ```text
 studio-space-server/
+│
 ├── middleware/
 │   └── verifyInternalRequest.js
+│
 ├── routes/
 │   ├── auth.js
 │   └── studios.js
+│
 ├── server.js
 ├── package.json
 ├── package-lock.json
@@ -71,30 +82,32 @@ studio-space-server/
 └── README.md
 ```
 
-## Installation and Setup
+## ⚙️ Installation and Setup
 
 ### Prerequisites
 
+Make sure you have installed:
+
 * Node.js
 * npm
-* MongoDB database
+* MongoDB
 * Git
 
 ### 1. Clone the Repository
 
-```bash id="1e5r1a"
+```bash
 git clone https://github.com/samiaislamridita670-ui/studio-space-server.git
 ```
 
 ### 2. Navigate to the Project
 
-```bash id="7b7g8s"
+```bash
 cd studio-space-server
 ```
 
 ### 3. Install Dependencies
 
-```bash id="6b5r4n"
+```bash
 npm install
 ```
 
@@ -102,78 +115,80 @@ npm install
 
 Create a `.env` file in the backend root directory.
 
-Add your own credentials:
+Add the required environment variables:
 
-```env id="d7p4fk"
+```env
+PORT=8000
 MONGODB_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
 INTERNAL_API_SECRET=your_shared_internal_api_secret
 ```
 
+If additional variables are required by your project configuration, add them using the exact names expected by the source code.
+
 **Important:**
 
-* Never upload `.env` to GitHub.
-* Keep all secret credentials private.
-* Use the same `INTERNAL_API_SECRET` in the frontend and backend environments.
+* Never upload your `.env` file to GitHub.
+* Keep database credentials and secret keys private.
+* Configure the same `INTERNAL_API_SECRET` wherever internal request verification requires it.
 
 ### 5. Run the Development Server
 
-```bash id="n5m4gq"
+```bash
 npm run dev
 ```
 
-The backend API runs locally at:
-
-http://localhost:5000
-
-### 6. Run in Production Mode
-
-```bash id="8d7w4v"
-npm start
-```
-
-## API Endpoints
-
-Base URL:
+The local backend API is expected to run at:
 
 ```text
-http://localhost:5000/api
+http://localhost:8000
+```
+
+Use the development command defined in your `package.json`.
+
+## 🔌 API Endpoints
+
+### Base URL
+
+```text
+/api
 ```
 
 ### Studio APIs
 
-| Method | Endpoint        | Description                       |
-| ------ | --------------- | --------------------------------- |
-| GET    | `/studios`      | Get all studios                   |
-| GET    | `/studios/:id`  | Get studio details                |
-| GET    | `/studios/mine` | Get authenticated user's listings |
-| POST   | `/studios`      | Create a studio                   |
-| PUT    | `/studios/:id`  | Update a studio                   |
-| DELETE | `/studios/:id`  | Delete a studio                   |
+| Method | Endpoint            | Description                       |
+| ------ | ------------------- | --------------------------------- |
+| GET    | `/api/studios`      | Get all studios                   |
+| GET    | `/api/studios/:id`  | Get studio details                |
+| GET    | `/api/studios/mine` | Get authenticated user's listings |
+| POST   | `/api/studios`      | Create a studio                   |
+| PUT    | `/api/studios/:id`  | Update a studio                   |
+| DELETE | `/api/studios/:id`  | Delete a studio                   |
 
-**Note:** The `/studios/mine` endpoint and studio modification operations require authenticated internal requests from the frontend server.
+**Note:** Private listing operations require the appropriate authenticated internal requests from the frontend server.
 
-### Authentication
+### Authentication Routes
 
-The backend also contains authentication-related routes under:
+Authentication-related routes are available under:
 
 ```text
 /api/auth
 ```
 
-## Frontend Integration
+## 🔗 Frontend Integration
 
-The frontend communicates with this backend through server-side Next.js API routes.
+The frontend communicates with the backend through server-side Next.js API routes.
 
 Configure the frontend environment variable:
 
-```env id="1d0q2b"
-BACKEND_URL=http://localhost:5000
+```env
+BACKEND_URL=http://localhost:8000
 ```
 
-The frontend sends authenticated user information and the internal API secret through server-side requests.
+For production, use the deployed backend URL.
 
-## Security Notes
+The frontend server communicates with the backend using the configured internal request verification mechanism.
+
+## 🔐 Security Notes
 
 * Internal API requests are verified using a shared secret.
 * Secret comparisons use timing-safe verification.
@@ -182,28 +197,31 @@ The frontend sends authenticated user information and the internal API secret th
 * Client-provided ownership information is not trusted for protected operations.
 * Environment variables are excluded from version control.
 
-## Deployment
+## 🚀 Deployment
 
-The backend is intended to be deployed as a Node.js web service.
+The backend is deployed using Vercel.
 
 Production deployment requires:
 
 * A valid MongoDB connection string.
-* A secure JWT secret.
-* A shared internal API secret.
 * Correct production environment variables.
+* A securely configured internal API secret.
+* Proper frontend and backend integration.
 
-**Live Backend URL:** To be added after deployment.
+**Live Backend URL:**
+https://studio-space-server-jbg6.vercel.app
 
-## Author
+**Health Check:**
+https://studio-space-server-jbg6.vercel.app/api/health
+
+## 👩‍💻 Author
 
 **Samia Islam Ridita**
-
 CSE Undergraduate Student
 Green University of Bangladesh
 Dhaka, Bangladesh
 
-GitHub: https://github.com/samiaislamridita670-ui
+**GitHub:** https://github.com/samiaislamridita670-ui
 
 ---
 
