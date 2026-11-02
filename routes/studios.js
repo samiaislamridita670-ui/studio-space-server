@@ -313,11 +313,24 @@ router.put("/:id", verifyInternalRequest, async (req, res) => {
       updates.maxCapacity = Number(updates.maxCapacity);
     }
 
-    if ("amenities" in updates && !Array.isArray(updates.amenities)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid amenities",
-      });
+    if ("amenities" in updates) {
+      if (
+        !Array.isArray(updates.amenities) ||
+        !updates.amenities.every((item) => typeof item === "string")
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid amenities",
+        });
+      }
+
+      updates.amenities = [
+        ...new Set(
+          updates.amenities
+            .map((item) => item.trim())
+            .filter(Boolean)
+        ),
+      ];
     }
 
     if ("image" in updates && typeof updates.image !== "string") {
@@ -399,5 +412,6 @@ router.delete("/:id", verifyInternalRequest, async (req, res) => {
 });
 
 module.exports = router;
+
 
 
